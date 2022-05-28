@@ -20,7 +20,7 @@
 
 - name: install phpmysql
   yum:
-    name: php-mysqm
+    name: php-mysql
     state: present
 
 - name: demarrage du service apache
