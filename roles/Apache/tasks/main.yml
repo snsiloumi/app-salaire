@@ -1,0 +1,53 @@
+- name: install epel-release
+  yum:
+    name: epel-release
+    state: present
+
+- name: install apache server
+  yum:
+    name: httpd
+    state: present
+
+- name: install git
+  yum:
+    name: git
+    state: present
+
+- name: install php
+  yum:
+    name: php
+    state: present
+
+- name: install phpmysql
+  yum:
+    name: php-mysqm
+    state: present
+
+- name: demarrage du service apache
+  systemd:
+    name: httpd
+    state: started
+    enabled: yes
+    
+- name: Arret firewall
+  systemd:
+    name: firewalld
+    state: stopped
+    enabled: no
+    
+- name: creation du repertoire html
+  file:
+   path: /var/www/html
+   state: directory
+   mode: '0755'
+
+- name: clone git directory
+  git:
+    repo: https://github.com/ludovic-tech/app-php.git
+    dest: /var/www/html/app-php
+    
+- name: restart systemd apache service
+  systemd:
+    name: httpd
+    state: restarted
+    enabled: yes
