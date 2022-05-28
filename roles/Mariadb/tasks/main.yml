@@ -1,0 +1,31 @@
+- name: install epel-release
+  yum:
+    name: epel-release
+    state: present
+
+- name: install mariadb 
+  yum:
+    name: mariadb
+    state: present
+
+- name: install mariadb server
+  yum:
+    name: mariadb-server
+    state: present
+
+
+- name: demarrage du service mariadb
+  systemd:
+    name: mariadb
+    state: started
+    enabled: yes
+    
+
+- name: Start mysql_secure_installation
+  command: 'echo "& y y root root y n y y" | ./usr/bin/mysql_secure_installation'
+    
+- name: restart systemd mariadb service
+  systemd:
+    name: mariadb
+    state: restarted
+    enabled: yes
