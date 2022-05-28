@@ -1,4 +1,4 @@
 - name: install nginx
   hosts: web
   roles:
-    - apache
+    - Apache
